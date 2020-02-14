@@ -4,9 +4,17 @@
   "scripts": {
     "build": "gridsome build",
     "develop": "gridsome develop",
-    "explore": "gridsome explore"
+    "explore": "gridsome explore",
+    "deploy": "gh-pages -b master -d dist"
   },
   "dependencies": {
-    "gridsome": "^0.7.0"
-  }
+    "@gridsome/source-strapi": "^0.1.0",
+    "@gridsome/source-wordpress": "^0.5.2",
+    "download": "^7.1.0",
+    "gh-pages": "^2.2.0",
+    "gridsome": "^0.7.0",
+    "mkdirp": "^1.0.3",
+    "rimraf": "^3.0.2"
+  },
+  "version": "0.0.0"
 }
