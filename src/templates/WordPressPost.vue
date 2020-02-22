@@ -52,6 +52,11 @@ query($path: String!) {
 import TaxonomyLine from '~/components/TaxonomyLine'
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$page.article.title || '',
+    }
+  },
   components: {
     TaxonomyLine
   },

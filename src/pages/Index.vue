@@ -49,6 +49,9 @@ query {
 import ArticleCard from '~/components/ArticleCard.vue'
 
 export default {
+  metaInfo: {
+    title: '最近の記事'
+  },
   components: {
     ArticleCard
   },
