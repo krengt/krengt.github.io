@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>
-      <VAIcon :name="iconName" class="mr-2" />
+    <h1 class="flex items-center">
+      <VAIcon :name="iconName" class="mr-2 fill-current" />
       {{ label }}: <span class="text-xl font-bold">{{ taxonomies.title }}</span>({{ taxonomies.count }} 件)
     </h1>
 

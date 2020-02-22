@@ -28,7 +28,7 @@
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li v-for="menuItem in menuList" :key="menuItem.to" class="mr-3">
             <g-link :to="menuItem.to" class="flex items-center text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4">
-              <VAIcon v-if="menuItem.icon" :name="menuItem.icon" class="mr-2" />
+              <VAIcon v-if="menuItem.icon" :name="menuItem.icon" class="mr-2 fill-current" />
               <span>{{ menuItem.label }}</span>
             </g-link>
           </li>
