@@ -1,0 +1,51 @@
+<template>
+  <footer class="bg-white border-t border-gray-400">	
+    <div class="container max-w-4xl mx-auto flex py-8">
+
+      <div class="w-full mx-auto flex flex-wrap">
+        <div class="flex w-full md:w-1/2 ">
+          <div class="px-8">
+            <h3 class="font-bold text-gray-900">なにこれ</h3>
+            <p class="py-4 text-gray-600 text-sm">
+              <VueMarkdown class="vue-markdown">{{ data.about.markdown }}</VueMarkdown>
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex w-full md:w-1/2">
+          <div class="px-8">
+          <h3 class="font-bold text-gray-900">Web 上の居所</h3>
+          <dl class="list-reset items-center text-sm pt-3">
+            <template v-for="(social, index) in data.socials">
+              <dt :key="`dt-${index}`">
+                <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1" :href="social.href">
+                  {{ social.label }}
+                </a>
+              </dt>
+              <dd :key="`dd-${index}`" class="pl-4 text-xs text-gray-700">
+                {{ social.description }}
+              </dd>
+            </template>
+          </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script>
+import VueMarkdown from 'vue-markdown'
+
+export default {
+  components: {
+    VueMarkdown
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => ({})
+    }
+  }
+}
+</script>

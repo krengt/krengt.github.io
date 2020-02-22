@@ -1,33 +1,65 @@
 <template>
   <Layout>
-
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-
-    <h1>Hello, world!</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs/" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
+      <g-link v-for="article in articles" :key="article.id" :to="article.path">
+        <ArticleCard :article="article" class="my-2" />
+      </g-link>
+    </div>
+    <div class="flex items-center justify-center m-6">
+      <g-link to="/articles" class="bg-transparent border border-gray-500 hover:border-teal-500 text-xs text-gray-500 hover:text-teal-500 font-bold py-2 px-4 rounded-full">
+        もっと読む
+      </g-link>
+    </div>
   </Layout>
 </template>
 
+<page-query>
+query {
+  articles: allWordPressPost(limit: 10) {
+    edges {
+      node {
+        id
+        path
+        title
+        excerpt
+        date(format:"Y年M月D日")
+        tags {
+          id
+          path
+          slug
+          title
+        }
+        categories {
+          id
+          path
+          slug
+          title
+        }
+        defaultFeaturedMediaPath
+        featuredMedia {
+          sourceUrl
+        }
+      }
+    }
+  }
+}
+</page-query>
+
 <script>
+import ArticleCard from '~/components/ArticleCard.vue'
+
 export default {
-  metaInfo: {
-    title: 'Hello, world!'
+  components: {
+    ArticleCard
+  },
+  computed: {
+    articles() {
+      if (!this.$page || !this.$page.articles) {
+        return []
+      }
+
+      return this.$page.articles.edges.map(edge => edge.node)
+    }
   }
 }
 </script>
-
-<style>
-.home-links a {
-  margin-right: 1rem;
-}
-</style>

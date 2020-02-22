@@ -1,15 +1,14 @@
 <template>
-  <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav>
-    </header>
-    <slot/>
+  <div class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <TheHeader :site-name="$static.metadata.siteName" :menu-list="menuList" />
+
+    <!--Container-->
+    <div class="container w-full md:max-w-3xl mx-auto pt-20 pb-6">
+      <slot />
+    </div> 
+    <!--/container-->
+
+    <TheFooter :data="footerData" />
   </div>
 </template>
 
@@ -21,30 +20,47 @@ query {
 }
 </static-query>
 
-<style>
-body {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  margin:0;
-  padding:0;
-  line-height: 1.5;
+<script>
+export default {
+  data() {
+    return {
+      menuList: [
+        {
+          to: '/articles',
+          label: '記事',
+          icon: 'archive'
+        },
+        {
+          to: '/categories',
+          label: 'カテゴリー',
+          icon: 'folder'
+        },
+        {
+          to: '/tags',
+          label: 'タグ',
+          icon: 'tags'
+        }
+      ],
+      footerData: {
+        about: {
+          markdown: '車輪の再発明がよく書かれてるブログです。このブログのソースは [こちら](https://github.com/krengt/krengt.github.io)'
+        },
+        socials: [
+          {
+            type: "twitter",
+            label: '@krengt',
+            href: 'https://twitter.com/krengt',
+            description: '日常アカウント'
+          },
+          {
+            type: "twitter",
+            label: '@libkrengt',
+            href: 'https://twitter.com/libkrengt',
+            description: 'Tech・技術系アカウント'
+          }
+        ]
+      }
+    }
+  }
 }
-
-.layout {
-  max-width: 760px;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-}
-
-.nav__link {
-  margin-left: 20px;
-}
-</style>
+</script>

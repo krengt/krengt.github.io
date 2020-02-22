@@ -1,14 +1,40 @@
-# Default starter for Gridsome
+libkrengt
+=========
 
-This is the project you get when you run `gridsome create new-project`.
+This project is the source of libkrengt(https://krengt.github.io).
 
-### 1. Install Gridsome CLI tool if you don't have
+## Requirements
 
-`npm install --global @gridsome/cli`
+- docker
+- docker-compose
+- github account
+- npm or yarn
 
-### 2. Create a Gridsome project
+## Setup
 
-1. `gridsome create my-gridsome-site` to install default starter
-2. `cd my-gridsome-site` to open the folder
-3. `gridsome develop` to start a local dev server at `http://localhost:8080`
-4. Happy coding 🎉🙌
+```
+cp .env-sample .env
+```
+
+- edit `.env`
+
+```
+docker-compose up -d
+```
+
+## Post to the local WordPress
+
+- http://penguin.linux.test:8000 (e.g. Crostini)
+
+## Develop
+
+- `yarn develop`
+- http://penguin.linux.test:8081 (e.g. Crostini)
+
+## Build
+
+- `yarn build`
+
+## Deploy to the gh-page
+
+- `yarn deploy`
