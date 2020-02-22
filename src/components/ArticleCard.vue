@@ -17,8 +17,8 @@
       <div :class="[isSimpleMode? 'mb-4' : 'mb-8']">
         <small class="text-sm text-gray-600">{{ article.date }}</small>
         <div class="flex flex-col lg:flex-row">
-          <TaxonomyLine type="category" label="Category" :taxonomies="article.categories" />
-          <TaxonomyLine type="tag" label="Tags" :taxonomies="article.tags" />
+          <TaxonomyLine type="category" label="Category" :taxonomies="article.categories" :useLink="false" />
+          <TaxonomyLine type="tag" label="Tags" :taxonomies="article.tags" :useLink="false" />
         </div>
         <div class="text-gray-900 font-bold text-xl my-2">{{ article.title }}</div>
         <p v-if="!isSimpleMode" v-html="article.excerpt" class="text-gray-600 text-xs" />
