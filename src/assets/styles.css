@@ -2,22 +2,34 @@
   --tailwind-theme-color-teal: theme('colors.teal.600');
 }
 
-footer a {
+footer a,
+.post-content a
+{
   text-decoration: underline;
 }
-footer a:link {
+footer a:link,
+.post-content a:link
+{
   color: blue;
 }
-footer a:visited {
+footer a:visited,
+.post-content a:visited
+{
   color: purple;
 }
-footer a:hover {
+footer a:hover,
+.post-content a:hover
+{
   text-decoration-style: dotted;
 }
-footer a:hover:after {
+footer a:hover:after,
+.post-content a:hover:after
+{
   width: 100%;
 }
-footer a:active {
+footer a:active,
+.post-content a:active
+{
   color: red;
 }
 
