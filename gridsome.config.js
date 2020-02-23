@@ -33,6 +33,12 @@ module.exports = {
      options: {
        tailwindConfig: './tailwind.config.js'
      }
+    },
+    {
+      use: '@gridsome/plugin-sitemap',
+      options: {
+        // cacheTime: 600000,
+      }
     }
   ],
   templates: {

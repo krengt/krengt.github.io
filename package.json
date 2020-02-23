@@ -8,6 +8,7 @@
     "deploy": "gh-pages -b master -d dist"
   },
   "dependencies": {
+    "@gridsome/plugin-sitemap": "^0.2.3",
     "@gridsome/source-strapi": "^0.1.0",
     "@gridsome/source-wordpress": "^0.5.2",
     "babel-runtime": "^6.26.0",
@@ -17,6 +18,8 @@
     "gridsome-plugin-tailwindcss": "^2.2.36",
     "mkdirp": "^1.0.3",
     "rimraf": "^3.0.2",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
     "vue-awesome": "^4.0.2",
     "vue-markdown": "^2.2.4"
   },

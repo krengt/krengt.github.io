@@ -71,3 +71,28 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.post-content {
+  h2 {
+    @apply text-4xl;
+  }
+  p {
+    @apply my-4;
+  }
+  figcaption {
+    @apply text-sm;
+    @apply text-gray-700;
+    @apply text-center;
+  }
+  blockquote {
+    @apply text-base;
+    @apply px-5;
+    @apply py-2;
+    @apply bg-gray-200;
+    @apply border-l-8;
+    @apply border-gray-500;
+    @apply shadow;
+  }
+}
+</style>
