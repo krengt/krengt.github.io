@@ -4,18 +4,36 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
+const slugify = require('markdown-slug')
+
 module.exports = {
   siteName: process.env.SITE_NAME,
   siteUrl: process.env.SITE_URL,
+  permalinks: {
+    slugify: {
+      use: 'markdown-slug',
+      options: {}
+    }
+  },
   plugins: [
     {
-      use: '@gridsome/source-wordpress',
+      use: '@gridsome/source-filesystem',
       options: {
-        baseUrl: process.env.WORDPRESS_CONTAINER_URL || process.env.WORDPRESS_URL,
-        apiBase: 'wp-json',
-        typeName: 'WordPress',
-        perPage: 100,
-        concurrent: 10
+        path: 'articles/**/*.md',
+        typeName: 'Post',
+        refs: {
+          tags: {
+            typeName: 'Tag',
+            create: true
+          },
+          categories: {
+            typeName: 'Category',
+            create: true
+          }
+        },
+        remark: {
+          // remark options
+        }
       }
     },
     {
@@ -41,9 +59,44 @@ module.exports = {
       }
     }
   ],
+  transformers: {
+    remark: {
+      // global remark options
+      // externalLinksTarget: '_blank',
+      // externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
+      // autolinkClassName: 'icon icon-link',
+    }
+  },
   templates: {
-    WordPressCategory: '/category/:slug',
-    WordPressPost: '/:year/:month/:day/:slug',
-    WordPressPostTag: '/tag/:slug'
+    Category: [
+      {
+        path: (node) => {
+          const slug = slugify(node.title).replace(/%(.{2})/g, '-$1').toLowerCase()
+          return `/category/${slug}`
+        }
+      }
+    ],
+    Post: [
+      {
+        path: (node) => {
+          const filename = node.fileInfo.name
+          const indexOfFirst = filename.indexOf('.')
+
+          const ymd = filename.substring(0, indexOfFirst)
+          const slug = slugify(filename.substring(indexOfFirst+1))
+          const [year, month, date] = ymd.split('-')
+
+          return `/article/${year}/${month}/${date}/${slug}`
+        }
+      }
+    ],
+    Tag: [
+      {
+        path: (node) => {
+          const slug = slugify(node.title).replace(/%(.{2})/g, '-$1').toLowerCase()
+          return `/tag/${slug}`
+        }
+      }
+    ]
   }
 }

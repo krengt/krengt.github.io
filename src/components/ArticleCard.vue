@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative w-full lg:max-w-full lg:flex hover:shadow-2xl"
-    :class="{'lg:h-40': !isSimpleMode && featuredMediaUrl}"
+    :class="{'lg:h-32': !isSimpleMode && featuredMediaUrl}"
   >
     <div
       v-if="!isSimpleMode && featuredMediaUrl"
@@ -11,17 +11,17 @@
     >
     </div>
     <div
-      class="w-full lg:max-w-full border border-gray-400 lg:border-gray-400 bg-white px-4 pt-1 flex flex-col justify-between leading-normal overflow-y-hidden"
+      class="w-full lg:max-w-full border border-gray-400 lg:border-gray-400 bg-white px-4 py-2 flex flex-col justify-between leading-normal overflow-y-hidden"
       :class="[isSimpleMode || !featuredMediaUrl? 'rounded' : 'lg:border-l-0 lg:border-t rounded-b lg:rounded-b-none lg:rounded-r']"
     >
-      <div :class="[isSimpleMode? 'mb-4' : 'mb-8']">
+      <div class="flex flex-col justify-between h-full">
         <small class="text-sm text-gray-600">{{ article.date }}</small>
         <div class="flex flex-col lg:flex-row">
           <TaxonomyLine type="category" label="Category" :taxonomies="article.categories" :useLink="false" />
           <TaxonomyLine type="tag" label="Tags" :taxonomies="article.tags" :useLink="false" />
         </div>
         <div class="text-gray-900 font-bold text-xl my-2">{{ article.title }}</div>
-        <p v-if="!isSimpleMode" v-html="article.excerpt" class="text-gray-600 text-xs" />
+        <div v-if="!isSimpleMode" class="text-gray-600 text-right">{{ article.created }}</div>
       </div>
     </div>
   </div>
@@ -49,11 +49,11 @@ export default {
       return this.mode === 'simple'
     },
     featuredMediaUrl() {
-      if (!this.article.featuredMedia) {
-        return this.article.defaultFeaturedMediaPath
+      if (!this.article.featured && process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA) {
+        return process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA
       }
 
-      return this.article.featuredMedia.sourceUrl
+      return this.article.featured
     }
   }
 }

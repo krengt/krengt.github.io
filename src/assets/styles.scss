@@ -22,6 +22,12 @@ footer, .post-content {
   }
 }
 
+img {
+  &.featured {
+    border-radius: 4rem;
+  }
+}
+
 .pager-link {
   @apply px-3;
   @apply py-2;
@@ -31,14 +37,14 @@ footer, .post-content {
   @apply border-l;
   @apply border-b;
   @apply bg-white;
-  color: var(--tailwind-theme-color-teal);
+  color: $tailwind-theme-color-teal;
 
   &:hover {
     background-color: #f1f5f8;
   }
   &.active {
-    background-color: var(--tailwind-theme-color-teal);
-    border-color: var(--tailwind-theme-color-teal);
+    background-color: $tailwind-theme-color-teal;
+    border-color: $tailwind-theme-color-teal;
     @apply text-white;
   }
   &:disabled {

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="taxonomies.length" class="flex items-center text-base md:text-sm text-gray-500 mr-2">
+  <div class="flex items-center text-base md:text-sm text-gray-500 mr-2">
     <VAIcon :name="iconName" class="mr-2 fill-current" />
-    <span>{{ label }}: </span>
+    <!-- <span>{{ label }}: </span> -->
     <template
       v-for="taxonomy in taxonomies"
     >

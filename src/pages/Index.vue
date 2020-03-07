@@ -15,29 +15,23 @@
 
 <page-query>
 query {
-  articles: allWordPressPost(limit: 10) {
+  articles: allPost(limit: 10, sortBy: "created", order: DESC) {
     edges {
       node {
         id
         path
         title
-        excerpt
-        date(format:"Y年M月D日")
+        created(format:"Y年M月D日(ddd)", locale: "ja-JP")
+        featured
         tags {
           id
           path
-          slug
           title
         }
         categories {
           id
           path
-          slug
           title
-        }
-        defaultFeaturedMediaPath
-        featuredMedia {
-          sourceUrl
         }
       }
     }

@@ -23,12 +23,11 @@
 
 <page-query>
 query {
-  allWordPressPostTag {
+  allTag(sortBy: "count") {
     edges {
       node {
         id
         path
-        slug
         title
         count
       }
@@ -41,11 +40,11 @@ query {
 export default {
   computed: {
     tags() {
-      if (!this.$page || !this.$page.allWordPressPostTag) {
+      if (!this.$page || !this.$page.allTag) {
         return []
       }
 
-      return this.$page.allWordPressPostTag.edges.map(edge => edge.node)
+      return this.$page.allTag.edges.map(edge => edge.node)
     }
   }
 }

@@ -23,12 +23,11 @@
 
 <page-query>
 query {
-  allWordPressCategory {
+  allCategory(sortBy: "count") {
     edges {
       node {
         id
         path
-        slug
         title
         count
       }
@@ -41,11 +40,11 @@ query {
 export default {
   computed: {
     categories() {
-      if (!this.$page || !this.$page.allWordPressCategory) {
+      if (!this.$page || !this.$page.allCategory) {
         return []
       }
 
-      return this.$page.allWordPressCategory.edges.map(edge => edge.node)
+      return this.$page.allCategory.edges.map(edge => edge.node)
     }
   }
 }

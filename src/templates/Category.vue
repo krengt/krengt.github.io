@@ -1,38 +1,36 @@
 <template>
   <Layout>
     <div class="w-full px-4 md:px-6">
-      <TaxonomyTemplate type="tag" label="Tag" :taxonomies="tags" />
+      <TaxonomyTemplate type="category" label="カテゴリー" :taxonomies="categories" />
     </div>
   </Layout>
 </template>
 
 <page-query>
 query($id: ID!, $page: Int) {
-  wordPressPostTag(id: $id) {
+  category(id: $id) {
     title
     count
-    allWordPressPost: belongsTo(page: $page, perPage: 1) @paginate {
+    post: belongsTo(page: $page, perPage: 10, sortBy: "created", order: DESC) @paginate {
       pageInfo {
         totalPages
         currentPage
       }
       edges {
         node {
-          ... on WordPressPost {
+          ... on Post {
             id
             path
             title
-            date(format:"Y年M月D日")
+            created(format:"Y年M月D日(ddd)", locale: "ja-JP")
             tags {
               id
               path
-              slug
               title
             }
             categories {
               id
               path
-              slug
               title
             }
         	}
@@ -51,12 +49,12 @@ export default {
     TaxonomyTemplate
   },
   computed: {
-    tags() {
-      if (!this.$page || !this.$page.wordPressPostTag) {
+    categories() {
+      if (!this.$page || !this.$page.category) {
         return {}
       }
 
-      return this.$page.wordPressPostTag
+      return this.$page.category
     }
   }
 }

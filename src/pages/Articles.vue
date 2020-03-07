@@ -5,7 +5,7 @@
 
       <hr class="border-b-2 border-gray-400 my-4">
 
-      <Pager :info="$page.allWordPressPost.pageInfo" linkClass="pager-link" class="pager flex justify-center list-none p-0 my-6" />
+      <Pager :info="$page.allPost.pageInfo" linkClass="pager-link" class="pager flex justify-center list-none p-0 my-6" />
 
       <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
         <g-link v-for="article in articles" :key="article.id" :to="article.path">
@@ -13,14 +13,14 @@
         </g-link>
       </div>
 
-      <Pager :info="$page.allWordPressPost.pageInfo" linkClass="pager-link" class="pager flex justify-center list-none p-0 my-6" />
+      <Pager :info="$page.allPost.pageInfo" linkClass="pager-link" class="pager flex justify-center list-none p-0 my-6" />
     </div>
   </Layout>
 </template>
 
 <page-query>
 query($page: Int) {
-  allWordPressPost(perPage: 3, page: $page) @paginate {
+  allPost(perPage: 10, page: $page, sortBy: "created", order: DESC) @paginate {
     pageInfo {
       totalPages
       currentPage
@@ -31,22 +31,16 @@ query($page: Int) {
         path
         title
         excerpt
-        date(format:"Y年M月D日")
+        created(format:"Y年M月D日(ddd)", locale: "ja-JP")
         tags {
           id
           path
-          slug
           title
         }
         categories {
           id
           path
-          slug
           title
-        }
-        defaultFeaturedMediaPath
-        featuredMedia {
-          sourceUrl
         }
       }
     }
@@ -65,7 +59,7 @@ export default {
   },
   computed: {
     articles() {
-      return this.$page.allWordPressPost.edges.map(edge => edge.node)
+      return this.$page.allPost.edges.map(edge => edge.node)
     }
   }
 }
