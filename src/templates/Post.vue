@@ -101,5 +101,14 @@ export default {
     @apply bg-gray-300;
     @apply text-red-600;
   }
+  ul {
+    @apply list-disc;
+    @apply pl-8;
+    li {
+      p {
+        @apply inline;
+      }
+    }
+  }
 }
 </style>
