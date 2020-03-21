@@ -57,6 +57,12 @@ module.exports = {
       options: {
         // cacheTime: 600000,
       }
+    },
+    {
+      use: '@gridsome/plugin-google-analytics',
+      options: {
+        id: process.env.GA_ID
+      }
     }
   ],
   transformers: {
