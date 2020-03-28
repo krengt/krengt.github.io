@@ -27,9 +27,17 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      
-      - run: yarn install --frozen-lockfile
-      - run: yarn run build
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build app
+        run: yarn run build
+        env:
+          SITE_NAME: libkrengt
+          SITE_URL: https://krengt.github.io
+          GRIDSOME_DEFAULT_FEATURED_MEDIA: /images/default_media.jpg
+          GA_ID: UA-161445444-1
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
