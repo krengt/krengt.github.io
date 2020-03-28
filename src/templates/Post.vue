@@ -82,6 +82,11 @@ export default {
   }
   p {
     @apply my-4;
+
+    >code {
+      @apply bg-gray-300;
+      @apply text-red-600;
+    }
   }
   figcaption {
     @apply text-sm;
@@ -97,10 +102,6 @@ export default {
     @apply border-gray-500;
     @apply shadow;
   }
-  code {
-    @apply bg-gray-300;
-    @apply text-red-600;
-  }
   ul {
     @apply list-disc;
     @apply pl-8;
@@ -109,6 +110,9 @@ export default {
         @apply inline;
       }
     }
+  }
+  pre {
+    @apply text-base;
   }
 }
 </style>

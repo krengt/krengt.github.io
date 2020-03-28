@@ -13,6 +13,8 @@ import TheFooter from '~/components/TheFooter.vue'
 
 import Icon from 'vue-awesome/components/Icon'
 
+import 'prismjs/themes/prism.css'
+
 export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
