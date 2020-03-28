@@ -51,9 +51,10 @@ module.exports = {
         shouldTimeTravel: true
       }
       */
-     options: {
-       tailwindConfig: './tailwind.config.js'
-     }
+      options: {
+        tailwindConfig: './tailwind.config.js',
+        shouldPurge: false
+      }
     },
     {
       use: '@gridsome/plugin-sitemap',
