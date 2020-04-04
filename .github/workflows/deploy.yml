@@ -34,9 +34,10 @@ jobs:
       - name: Build app
         run: yarn run build
         env:
-          SITE_NAME: libkrengt
-          SITE_URL: https://krengt.github.io
+          GRIDSOME_SITE_NAME: libkrengt
+          GRIDSOME_SITE_URL: https://krengt.github.io
           GRIDSOME_DEFAULT_FEATURED_MEDIA: /images/default_media.jpg
+          GRIDSOME_HTML_LANG: ja
           GA_ID: UA-161445444-1
 
       - name: Deploy
