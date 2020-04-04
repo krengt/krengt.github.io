@@ -5,7 +5,7 @@
     <!--Container-->
     <div class="container w-full md:max-w-3xl mx-auto pt-20 pb-6">
       <slot />
-    </div> 
+    </div>
     <!--/container-->
 
     <TheFooter :data="footerData" />
@@ -16,6 +16,7 @@
 query {
   metadata {
     siteName
+    siteDescription
   }
 }
 </static-query>
@@ -40,10 +41,14 @@ export default {
           label: 'タグ',
           icon: 'tags'
         }
-      ],
-      footerData: {
+      ]
+    }
+  },
+  computed: {
+    footerData() {
+      return {
         about: {
-          markdown: '車輪の再発明がよく書かれてるブログです。このブログのソースは [こちら](https://github.com/krengt/krengt.github.io)'
+          markdown: `${this.$static.metadata.siteDescription}このブログのソースは [こちら](https://github.com/krengt/krengt.github.io)`
         },
         socials: [
           {

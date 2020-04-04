@@ -30,11 +30,15 @@
 
 <page-query>
 query($path: String!) {
+  metadata {
+    siteUrl
+  }
   article: post(path: $path) {
     id
     path
     title
     content
+    excerpt
     created(format:"Y年M月D日(ddd)", locale: "ja-JP")
     featured
     tags {
@@ -56,8 +60,43 @@ import TaxonomyLine from '~/components/TaxonomyLine'
 
 export default {
   metaInfo() {
+    if (!this.$page) {
+      return null
+    }
     return {
       title: this.$page.article.title || '',
+      meta: [
+        {
+          key: 'description',
+          name: 'description',
+          content: this.$page.article.excerpt
+        },
+        {
+          key: 'og:description',
+          property: 'og:description',
+          content: this.$page.article.excerpt
+        },
+        {
+          key: 'og:title',
+          property: 'og:title',
+          content: this.$page.article.title
+        },
+        {
+          key: 'og:url',
+          property: 'og:url',
+          content: `${this.$page.metadata.siteUrl}${this.$page.article.path}`
+        },
+        {
+          key: 'og:image',
+          property: 'og:image',
+          content: this.ogpImage
+        },
+        {
+          key: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
     }
   },
   components: {
@@ -70,6 +109,17 @@ export default {
       }
 
       return this.$page.article
+    },
+    ogpImage() {
+      let mediaPath
+
+      if (!this.$page.article.featured && process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA) {
+        mediaPath = process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA
+      } else {
+        mediaPath = this.$page.article.featured
+      }
+
+      return `${this.$page.metadata.siteUrl}${mediaPath}`
     }
   }
 }

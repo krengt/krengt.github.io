@@ -38,6 +38,9 @@ query {
 
 <script>
 export default {
+  metaInfo: {
+    title: 'タグ一覧'
+  },
   computed: {
     tags() {
       if (!this.$page || !this.$page.allTag) {

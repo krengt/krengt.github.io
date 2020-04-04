@@ -6,6 +6,7 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 const fs = require('fs')
+const striptags = require('striptags')
 
 module.exports = function (api) {
   api.loadSource(async ({ getCollection }) => {
@@ -80,6 +81,18 @@ module.exports = function (api) {
       // Set featured field
       if (!post.featured) {
         post.featured = ''
+      }
+
+      // Set excerpt
+      if (!post.excerpt) {
+        const postText = striptags(post.content).replace(/\n/g, '')
+        let excerpt = postText.substring(0, 300)
+
+        if (postText.length > 300) {
+          excerpt += '...'
+        }
+
+        post.excerpt = excerpt
       }
     }
 

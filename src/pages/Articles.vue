@@ -53,6 +53,9 @@ import { Pager } from 'gridsome'
 import ArticleCard from '~/components/ArticleCard'
 
 export default {
+  metaInfo: {
+    title: '記事一覧'
+  },
   components: {
     Pager,
     ArticleCard

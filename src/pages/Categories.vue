@@ -38,6 +38,9 @@ query {
 
 <script>
 export default {
+  metaInfo: {
+    title: 'カテゴリー一覧'
+  },
   computed: {
     categories() {
       if (!this.$page || !this.$page.allCategory) {

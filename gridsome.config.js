@@ -7,8 +7,9 @@
 const slugify = require('markdown-slug')
 
 module.exports = {
-  siteName: process.env.SITE_NAME,
-  siteUrl: process.env.SITE_URL,
+  siteName: process.env.GRIDSOME_SITE_NAME,
+  siteUrl: process.env.GRIDSOME_SITE_URL,
+  siteDescription: process.env.GRIDSOME_SITE_DESCRIPTION || '',
   permalinks: {
     slugify: {
       use: 'markdown-slug',
