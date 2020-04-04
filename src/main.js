@@ -22,4 +22,9 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('TheFooter', TheFooter)
 
   Vue.component('VAIcon', Icon)
+
+  // Set html head values
+  head.htmlAttrs = {
+    lang: process.env.HTML_LANG || 'en'
+  }
 }
