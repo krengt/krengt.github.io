@@ -5,8 +5,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
-
 import robotsTxt from "astro-robots-txt";
+import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,5 +14,18 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: 'prism'
   },
-  integrations: [image(), mdx(), sitemap(), tailwind(), vue(), robotsTxt()]
+  integrations: [
+    image(),
+    mdx(),
+    sitemap(),
+    tailwind(),
+    vue(),
+    robotsTxt(),
+    partytown({
+      // Adds dataLayer.push as a forwarding-event.
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    })
+  ]
 });
