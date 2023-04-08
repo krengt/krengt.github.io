@@ -15,46 +15,39 @@
       :class="[isSimpleMode || !featuredMediaUrl? 'rounded' : 'lg:border-l-0 lg:border-t rounded-b lg:rounded-b-none lg:rounded-r']"
     >
       <div class="flex flex-col justify-between h-full">
-        <small class="text-sm text-gray-600">{{ article.date }}</small>
         <div class="flex flex-col lg:flex-row">
           <TaxonomyLine type="category" label="Category" :taxonomies="article.categories" :useLink="false" />
           <TaxonomyLine type="tag" label="Tags" :taxonomies="article.tags" :useLink="false" />
         </div>
         <div class="text-gray-900 font-bold text-xl my-2">{{ article.title }}</div>
-        <div v-if="!isSimpleMode" class="text-gray-600 text-right">{{ article.created }}</div>
+        <FormattedDate v-if="!isSimpleMode" class="text-gray-600 text-right" :date="article.date" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import TaxonomyLine from '~/components/TaxonomyLine'
+<script setup lang="ts">
+import TaxonomyLine from '@components/TaxonomyLine.vue'
+import FormattedDate from '@components/FormattedDate.vue'
+import type { Article } from '@libs/articles'
+import { computed } from 'vue'
 
-export default {
-  components: {
-    TaxonomyLine
-  },
-  props: {
-    mode: {
-      type: String,
-      default: 'full' // full | simple
-    },
-    article: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  computed: {
-    isSimpleMode() {
-      return this.mode === 'simple'
-    },
-    featuredMediaUrl() {
-      if (!this.article.featured && process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA) {
-        return process.env.GRIDSOME_DEFAULT_FEATURED_MEDIA
-      }
+const props = withDefaults(defineProps<{
+  mode?: 'full' | 'simple'
+  article: Article
+}>(), {
+  mode: 'full'
+})
 
-      return this.article.featured
-    }
+const isSimpleMode = computed(() => {
+  return props.mode === 'simple'
+})
+
+const featuredMediaUrl = computed(() => {
+  if (!props.article.featured) {
+    return '/images/default_media.jpg'
   }
-}
+
+  return props.article.featured
+})
 </script>

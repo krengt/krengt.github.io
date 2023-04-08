@@ -1,0 +1,37 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { sortTaxonomies } from '@libs/articles';
+import { buildTitle } from '@libs/util';
+import { getCollection } from 'astro:content';
+import Icon from '@components/Icon.vue';
+
+const rawArticles = await getCollection('articles')
+const sortedTags = sortTaxonomies(rawArticles, 'tags')
+---
+
+<Layout title={buildTitle('タグ一覧')}>
+  <main>
+    <div class="w-full px-4 md:px-6">
+      <h1 class="flex items-center">
+        <Icon client:load name="tags" class="mr-2 fill-current" />
+        タグ一覧
+      </h1>
+
+      <hr class="border-b-2 border-gray-400 my-4">
+
+      {
+        sortedTags.map((tag: any) => (
+          <div class="inline-flex items-center text-base md:text-sm text-gray-500 mt-4 mr-8">
+            <Icon client:load name="tag" class="mr-2 fill-current" />
+            <a
+              href={`/tag/${tag.name}`}
+              class="text-base md:text-xl text-teal-500 no-underline hover:underline mx-1"
+            >
+              { tag.name }({ tag.count })
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
