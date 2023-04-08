@@ -11,34 +11,31 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: source
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '13.x'
+          node-version: 18
 
       - name: Cache dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.cache/npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-npm-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build app
-        run: yarn run build
+        run: npm run build
         env:
-          GRIDSOME_SITE_NAME: libkrengt
-          GRIDSOME_SITE_URL: https://krengt.github.io
-          GRIDSOME_DEFAULT_FEATURED_MEDIA: /images/default_media.jpg
-          GRIDSOME_HTML_LANG: ja
-          GA_ID: UA-161445444-1
+          SITE_NAME: libkrengt
+          GA_MEASUREMENT_ID: G-BPQ2CVB61C
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
