@@ -1,0 +1,34 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { sortArticles } from '@libs/articles';
+import { buildTitle } from '@libs/util';
+import { getCollection } from 'astro:content';
+import ArticleCard from '@components/ArticleCard.vue';
+import Icon from '@components/Icon.vue';
+
+const rawArticles = await getCollection('articles')
+const sortedArticles = sortArticles(rawArticles)
+---
+
+<Layout title={buildTitle('記事一覧')}>
+  <main>
+    <div class="w-full px-4 md:px-6">
+      <h1 class="flex items-center">
+        <Icon client:load name="article" class="mr-2 fill-current" />
+        記事一覧
+      </h1>
+
+      <hr class="border-b-2 border-gray-400 my-4">
+
+      <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
+        {
+          sortedArticles.map((article: any) => (
+            <a href={article.href}>
+              <ArticleCard client:load article={article} class="my-2" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>

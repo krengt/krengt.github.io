@@ -1,0 +1,40 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { sortArticlesBy } from '@libs/articles';
+import { buildTitle } from '@libs/util';
+import { getCollection } from 'astro:content';
+import TaxonomyTemplate from '@components/TaxonomyTemplate.vue';
+
+export const getStaticPaths = async () => {
+  const rawArticles = await getCollection('articles')
+
+  const key = 'tags'
+  const tagArticles = sortArticlesBy(rawArticles, {
+    by: key
+  })
+
+  const paths = tagArticles.map((tagArticle) => {
+    return {
+      params: {
+        tag: tagArticle[key]
+      },
+      props: {
+        tag: tagArticle[key],
+        articles: tagArticle.articles
+      }
+    }
+  })
+
+  return paths
+}
+
+const { tag, articles } = Astro.props
+---
+
+<Layout title={buildTitle(`タグ: ${tag}`)}>
+  <main>
+    <div class="w-full px-4 md:px-6">
+      <TaxonomyTemplate client:load type="tag" label="タグ" taxonomy={tag} articles={articles} />
+    </div>
+  </main>
+</Layout>

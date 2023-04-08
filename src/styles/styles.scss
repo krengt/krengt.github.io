@@ -1,0 +1,67 @@
+footer, .post-content {
+  a {
+    text-decoration: underline;
+
+    &:link {
+      color: blue;
+    }
+    &:visited {
+      color: purple;
+    }
+    &:hover {
+      text-decoration-style: dotted;
+    }
+    &:hover:after {
+      width: 100%;
+    }
+    &:active {
+      color: red;
+    }
+  }
+}
+
+img {
+  &.featured {
+    border-radius: 4rem;
+  }
+}
+
+.post-content {
+  h2 {
+    @apply text-4xl;
+  }
+  p {
+    @apply my-5;
+
+    >code {
+      @apply bg-gray-300;
+      @apply text-red-600;
+    }
+  }
+  figcaption {
+    @apply text-sm;
+    @apply text-gray-700;
+    @apply text-center;
+  }
+  blockquote {
+    @apply text-base;
+    @apply px-5;
+    @apply py-2;
+    @apply bg-gray-200;
+    @apply border-l-8;
+    @apply border-gray-500;
+    @apply shadow;
+  }
+  ul {
+    @apply list-disc;
+    @apply pl-8;
+    li {
+      p {
+        @apply inline;
+      }
+    }
+  }
+  pre {
+    @apply text-base #{!important};
+  }
+}

@@ -1,0 +1,5 @@
+# Site settings
+SITE_NAME=sitename
+
+# Google Analytics (v4)
+GA_MEASUREMENT_ID=

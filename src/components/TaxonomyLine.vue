@@ -1,57 +1,46 @@
 <template>
   <div class="flex items-center text-base md:text-sm text-gray-500 mr-2">
-    <VAIcon :name="iconName" class="mr-2 fill-current" />
-    <!-- <span>{{ label }}: </span> -->
+    <Icon :name="iconName" class="mr-2 fill-current" />
     <template
-      v-for="taxonomy in taxonomies"
+      v-for="(taxonomy, index) in taxonomies"
+      :key="index"
     >
-      <g-link
+      <a
         v-if="useLink"
-        :key="taxonomy.id"
-        :to="taxonomy.path"
+        :href="`/${type}/${taxonomy}`"
         class="text-base md:text-sm text-teal-500 no-underline hover:underline mx-1"
       >
-        {{ taxonomy.title }}
-      </g-link>
+        {{ taxonomy }}
+      </a>
       <span
         v-else
-        :key="taxonomy.id"
         class="text-base md:text-sm text-gray-800 mx-1"
       >
-        {{ taxonomy.title }}
+        {{ taxonomy }}
       </span>
     </template>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    type: {
-      type: String,
-      required: true
-    },
-    label: {
-      type: String,
-      default: 'Taxonomy'
-    },
-    taxonomies: {
-      type: Array,
-      default: () => []
-    },
-    useLink: {
-      type: Boolean,
-      default: true
-    }
-  },
-  computed: {
-    iconName() {
-      if (this.type === 'tag') {
-        return 'tags'
-      }
+<script setup lang="ts">
+import Icon from '@components/Icon.vue'
+import { computed } from 'vue'
 
-      return 'folder'
-    }
+const props = withDefaults(defineProps<{
+  type: string
+  label: string
+  taxonomies: string[]
+  useLink?: boolean
+}>(), {
+  label: 'Taxonomy',
+  useLink: true
+})
+
+const iconName = computed(() => {
+  if (props.type === 'tag') {
+    return 'tags'
   }
-}
+
+  return 'folder'
+})
 </script>

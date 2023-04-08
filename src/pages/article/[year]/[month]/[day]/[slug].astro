@@ -1,0 +1,70 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Picture } from '@astrojs/image/components'
+import { articleParams } from '@libs/articles';
+import { buildTitle } from '@libs/util';
+import { getCollection } from 'astro:content';
+import TaxonomyLine from '@components/TaxonomyLine.vue';
+import FormattedDate from '@components/FormattedDate.vue';
+
+export const getStaticPaths = async () => {
+  const articles = await getCollection('articles')
+  
+  const paths = articles.map((article) => {
+    const {year, month, day, slug, date} = articleParams(article)
+
+    return {
+      params: {
+        year,
+        month,
+        day,
+        slug,
+      },
+      props: {
+        ...article,
+        date,
+      }
+    }
+  })
+
+  return paths
+}
+
+const { year, month, day, slug } = Astro.params
+const { render, date } = Astro.props
+const { title, featured, categories, tags } = Astro.props.data
+const { Content }= await render()
+---
+
+<Layout title={buildTitle(title)} featured={featured}>
+  <main>
+    <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
+      <div>
+        {featured && <Picture
+          class="featured"
+          src={featured}
+          alt="featured image"
+          widths={[800]}
+          sizes="(max-width: 800px) 100vw, 800px"
+          aspectRatio="16:9"
+        />}
+        <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
+          { title }
+        </h1>
+        <div class="flex pt-4">
+          <TaxonomyLine client:load type="category" label="Category" taxonomies={categories} />
+          <TaxonomyLine client:load type="tag" label="Tags" taxonomies={tags} class="pl-4" />
+        </div>
+        <div class="text-gray-600 text-right">
+          <FormattedDate client:load date={date} />
+        </div>
+      </div>
+
+      <hr class="border-b-2 border-gray-400 my-4">
+
+      <div class="post-content leading-9">
+        <Content />
+      </div>
+    </div>
+  </main>
+</Layout>

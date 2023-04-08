@@ -1,0 +1,33 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { sortArticles } from '@libs/articles';
+import { buildTitle } from '@libs/util';
+import { getCollection } from 'astro:content';
+import ArticleCard from '@components/ArticleCard.vue';
+
+const ARTICLE_LIMIT = 5
+
+const rawArticles = await getCollection('articles')
+const sortedArticles = sortArticles(rawArticles)
+const filteredArticles = sortedArticles.slice(0, ARTICLE_LIMIT)
+---
+
+<Layout title={buildTitle('最近の記事')}>
+  <main class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
+    {
+      filteredArticles.map((article: any) => (
+        <a href={article.href}>
+          <ArticleCard article={article} class="my-2" />
+        </a>
+      ))
+    }
+  </main>
+  <div class="flex items-center justify-center m-6">
+    {
+      sortedArticles.length > ARTICLE_LIMIT &&
+      <a href="/articles" class="bg-transparent border border-gray-500 hover:border-teal-500 text-xs text-gray-500 hover:text-teal-500 font-bold py-2 px-4 rounded-full">
+        もっと見る
+      </a>
+    }
+  </div>
+</Layout>

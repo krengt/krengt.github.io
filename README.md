@@ -6,44 +6,27 @@ This project is the source of libkrengt(https://krengt.github.io).
 ## Requirements
 
 - github account
-- npm or yarn
 - your favorite markdown editor
-
-## Setup
-
-```
-cp .env-sample .env
-```
-
-- edit `.env`
-
-```
-docker-compose up -d
-```
 
 ## Files
 
 - Articles
-  - /articles/:year/yyyy-mm-dd.slug.md
-  - (e.g. `/articles/2020/2020-03-06.hello-markdown.md`)
+  - /src/content/articles/:year/yyyy-mm-dd.slug.md
+  - (e.g. `/src/content/articles/2020/2020-03-06.hello-markdown.md`)
 - Images
-  - /static/images/*
-  - (e.g. `/static/images/penguin.jpg`)
-  - image path in article -> `/images/penguin.jpg`
-
-## Post to the local WordPress
-
-- http://penguin.linux.test:8000 (e.g. Crostini)
+  - /public/images/*
+  - (e.g. `/public/images/featured.jpg`)
+  - image path in article -> `/images/featured.jpg`
 
 ## Develop
 
-- `yarn develop`
-- http://penguin.linux.test:8081 (e.g. Crostini)
+- `npm run develop`
+- open http://localhost:3000
 
 ## Build
 
-- `yarn build`
+- `npm run build`
 
 ## Deploy to the gh-page
 
-- `yarn deploy`
+- `npm run deploy`

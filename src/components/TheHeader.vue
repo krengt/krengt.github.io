@@ -4,9 +4,9 @@
 
     <div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
       <div class="pl-4">
-        <g-link to="/" class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl"> 
+        <a href="/" class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl"> 
           {{ siteName }}
-        </g-link>
+        </a>
       </div>
 
       <div class="block lg:hidden pr-4">
@@ -27,73 +27,88 @@
       >
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li v-for="menuItem in menuList" :key="menuItem.to" class="mr-3">
-            <g-link :to="menuItem.to" class="flex items-center text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4">
-              <VAIcon v-if="menuItem.icon" :name="menuItem.icon" class="mr-2 fill-current" />
+            <a
+              :href="menuItem.to"
+              class="flex items-center text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4"
+              :class="{ active: menuItem.to === pathname }"
+            >
+              <Icon v-if="menuItem.icon" :name="menuItem.icon" class="mr-2 fill-current" />
               <span>{{ menuItem.label }}</span>
-            </g-link>
+            </a>
           </li>
-          <!-- <li class="mr-3">
-            <g-link to="/articles" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">active-link</g-link>
-          </li> -->
-          <!-- <li class="mr-3">
-            <g-link to="" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">inactive-link</g-link>
-          </li> -->
         </ul>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
-export default {
-  props: {
-    siteName: {
-      type: String,
-      required: true
-    },
-    menuList: {
-      type: Array,
-      default: () => []
-    }
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref } from "vue"
+import Icon from "@components/Icon.vue"
+
+const siteName = 'libkrengt'
+const menuList = [
+  {
+    to: '/articles',
+    label: '記事',
+    icon: 'archive'
   },
-  data() {
-    return {
-      scrollPosition: null,
-      showNavContent: false
-    }
+  {
+    to: '/categories',
+    label: 'カテゴリー',
+    icon: 'folder'
   },
-  computed: {
-    headerClass() {
-      if (this.scrollPosition > 10) {
-        return 'bg-white shadow'
-      } else {
-        return ''
-      }
-    },
-    navContentClass() {
-      if (this.scrollPosition > 10) {
-        return 'bg-white'
-      } else {
-        return 'bg-gray-100'
-      }
-    }
-  },
-  mounted() {
-    this.scrollPosition = window.scrollY
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
-  methods: {
-    handleScroll() {
-      this.scrollPosition = window.scrollY
-    },
-    handleNavContent() {
-      this.showNavContent = !this.showNavContent
-    }
+  {
+    to: '/tags',
+    label: 'タグ',
+    icon: 'tags'
   }
+]
+
+const props = defineProps<{
+  pathname: string
+}>()
+
+const { pathname } = props
+const scrollPosition = ref<number | null>(null)
+const showNavContent = ref<boolean>(false)
+
+const headerClass = computed(() => {
+  if (scrollPosition.value && scrollPosition.value > 10) {
+    return 'bg-white shadow'
+  }
+
+  return ''
+})
+
+const navContentClass = computed(() => {
+  if (scrollPosition.value && scrollPosition.value > 10) {
+    return 'bg-white'
+  }
+
+  return 'bg-gray-100'
+})
+
+const active = computed(() => {
+  return 'active'
+})
+
+const handleScroll = () => {
+  scrollPosition.value = window.scrollY
 }
+
+const handleNavContent = () => {
+  showNavContent.value = !showNavContent.value
+}
+
+onMounted(() => {
+  scrollPosition.value = window.scrollY
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>
