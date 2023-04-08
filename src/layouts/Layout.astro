@@ -20,6 +20,8 @@ const { GA_MEASUREMENT_ID } = import.meta.env
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="sitemap" href="sitemap-index.xml" />
     <!-- Google tag (gtag.js) -->
     <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
     <script type="text/partytown" define:vars={{ GA_MEASUREMENT_ID }}>
@@ -40,11 +42,6 @@ const { GA_MEASUREMENT_ID } = import.meta.env
         },
       }}
       extend={{
-        // extending the default link tags
-        link: [
-          { rel: "icon", type: "image/png", size: "16x16", href: "/favicon.png" },
-          { rel: "sitemap", href: "sitemap-index.xml" }
-        ],
         // extending the default meta tags
         meta: [
           { name: "twitter:card", content: "summary" },
