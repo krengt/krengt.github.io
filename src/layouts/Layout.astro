@@ -6,7 +6,8 @@ import TheFooter from "@components/TheFooter.vue"
 import { SEO } from "astro-seo"
 
 export interface Props {
-  title: string;
+  title: string
+  featured?: string
 }
 
 const { title, featured } = Astro.props;
