@@ -14,7 +14,7 @@ const sortedArticles = sortArticles(rawArticles)
   <main>
     <div class="w-full px-4 md:px-6">
       <h1 class="flex items-center">
-        <Icon client:load name="article" class="mr-2 fill-current" />
+        <Icon client:load name="article" class:list={["mr-2", "fill-current"]} />
         記事一覧
       </h1>
 
@@ -24,7 +24,7 @@ const sortedArticles = sortArticles(rawArticles)
         {
           sortedArticles.map((article: any) => (
             <a href={article.href}>
-              <ArticleCard client:load article={article} class="my-2" />
+              <ArticleCard client:load article={article} class:list={["my-2"]} />
             </a>
           ))
         }

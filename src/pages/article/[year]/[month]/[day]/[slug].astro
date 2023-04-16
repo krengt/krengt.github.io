@@ -53,7 +53,7 @@ const { Content }= await render()
         </h1>
         <div class="flex pt-4">
           <TaxonomyLine client:load type="category" label="Category" taxonomies={categories} />
-          <TaxonomyLine client:load type="tag" label="Tags" taxonomies={tags} class="pl-4" />
+          <TaxonomyLine client:load type="tag" label="Tags" taxonomies={tags} class:list={["pl-4"]} />
         </div>
         <div class="text-gray-600 text-right">
           <FormattedDate client:load date={date} />
